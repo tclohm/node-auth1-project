@@ -9,18 +9,18 @@ module.exports = {
 
 function find() {
 	return db('users')
-		.select('id', 'username');
+		.select('id', 'username', 'profile-picture');
 }
 
 function findBy(filter) {
 	return db('users')
-		.select('id', 'username', 'password')
+		.select('id', 'username','password', 'profile-picture')
 		.where(filter)
 }
 
 function add(user) {
 	return db('users')
-		.insert(user, 'id')
+		.insert(user, "id")
 		.then(ids => {
 			const [id] = ids;
 			return findById(id);
@@ -29,7 +29,7 @@ function add(user) {
 
 function findById(id) {
 	return db('users')
-		.select('id', 'username', 'password')
+		.select('id', 'username', 'password', 'profile-picture')
 		.where("id", id)
 		.first();
 }

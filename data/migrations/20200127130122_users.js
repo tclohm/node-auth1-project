@@ -10,6 +10,8 @@ exports.up = function(knex) {
   	tbl
   		.string('password', 128)
   		.notNullable()
+    tbl.string('profile-picture')
+      .defaultTo('https://cdn.dribbble.com/users/104045/screenshots/3359547/facepalm.png');
   })
 };
 
