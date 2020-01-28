@@ -13,7 +13,7 @@ const sessionConfig = {
 	name: 'monkey', // sid
 	secret: process.env.SESSION_SECRET || 'keep it secret, keep it safe!', // goes into .env
 	cookie: {
-		maxAge: 1000 * 30, // valid for 30 seconds. Then expires
+		maxAge: 1000 * 60 * 10, // valid for 10 minutes. Then expires
 		secure: false, // true in production
 		httpOnly: true, // JS cannot access cookies on the browsers
 	},
