@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Users = require('./users-model.js');
 const bcrypt = require("bcryptjs");
+const restrictMW = require('../auth/restricted-middleware.js');
 
-router.get('/', (req, res) => {
+router.get('/', restrictMW, (req, res) => {
 	if(req.headers.username && req.headers.password) {
 		const username = req.headers.username;
 		const password = req.headers.password;

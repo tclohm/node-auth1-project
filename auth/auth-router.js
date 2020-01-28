@@ -32,6 +32,8 @@ router.post('/login', (req, res) => {
 			if(usr) {
 				bcrypt.compare(password, usr.password).then(match => {
 					if(match) {
+						// session
+						req.session.user = usr;
 						res.status(201).json({ message: `Welcome ${usr.username}`});
 					} else {
 						res.status(401).json({ message: 'You shall not pass!' });
