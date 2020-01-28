@@ -33,6 +33,7 @@ router.post('/login', (req, res) => {
 				bcrypt.compare(password, usr.password).then(match => {
 					if(match) {
 						// session
+						// req.session.loggedIn = true;
 						req.session.user = usr;
 						res.status(201).json({ message: `Welcome ${usr.username}`});
 					} else {
