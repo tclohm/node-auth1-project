@@ -4,7 +4,7 @@ exports.up = function(knex) {
   	tbl
   		.increments();
   	tbl
-  		.string('username', 128)
+  		.string('username', 255)
   		.notNullable()
   		.unique();
   	tbl
