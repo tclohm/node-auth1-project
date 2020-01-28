@@ -109,4 +109,4 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-auth.db3
+./data/auth.db3
