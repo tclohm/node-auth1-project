@@ -33,6 +33,7 @@ router.post('/login', (req, res) => {
 				bcrypt.compare(password, usr.password).then(match => {
 					if(match) {
 						// session
+						// req.session.loggedIn = true;
 						req.session.user = usr;
 						res.status(201).json({ message: `Welcome ${usr.username}`});
 					} else {
@@ -48,6 +49,20 @@ router.post('/login', (req, res) => {
 			console.log(err);
 			res.status(500).json({ message: 'Invalid Credentials' })
 		})
+});
+
+router.get('/logout', (req, res) => {
+	if(req.session) {
+		req.session.destroy(err => {
+			if(err) {
+				res.json({ message: 'you can checkout any time you like, but you can never leave'})
+			} else {
+				res.status(200).json({ message: 'bye, thanks for playing!' });
+			}
+		})
+	} else {
+		res.status(200).json({ message: 'You were never here to begin with' });
+	}
 });
 
 module.exports = router;
