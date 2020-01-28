@@ -1,8 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 // persistence
-const knexSessionStore = require('connect-session-knex')(session);
-const dbConnection = "../data/db-config.js";
+const KnexSessionStore = require('connect-session-knex')(session);
+const dbConnection = require("../data/db-config.js");
 
 const apiRouter = require('./api-router.js');
 const configureMW = require('./config-middleware.js');
@@ -18,23 +18,21 @@ const sessionConfig = {
 		httpOnly: true, // JS cannot access cookies on the browsers
 	},
 	resave: false, // 
-	saveUninitialized: false, // GDPR laws against setting cookies automatically (only true if they accept cookies)
+	saveUninitialized: true, // GDPR laws against setting cookies automatically (only true if they accept cookies)
 	// persistences
-	store: new knexSessionStore({
+	store: new KnexSessionStore({
 		knex: dbConnection,
 		tablename: 'sessions',
 		sidfieldname: 'sid',
 		createtable: true,
 		clearInterval: 60000,
 	}),
-
-}
+};
 
 const server = express();
-
+server.use(session(sessionConfig));
 configureMW(server);
 
-server.use(session(sessionConfig))
 server.use('/api', apiRouter);
 
 module.exports = server;
