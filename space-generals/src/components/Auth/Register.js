@@ -76,7 +76,7 @@ export const Register = () => {
 
   	const login = () => {
   		if (userToLogin.username !== "" && userToLogin.password !== "") {
-  			
+  			setIsFetching(true)
   		} else {
 	  		setIsFetching(true);
 	  		let fetch = () => setTimeout(function () {
