@@ -9,7 +9,7 @@ const Home = () => {
 		<Container className="homebackground">
 		<Row>
 			<Col xs={{ offset: 0 }} lg={{ offset: 2 }}>
-				<img src={space} alt="space-man"/>
+				<img className="op" src={space} alt="space-man"/>
 			</Col>
 		</Row>
 		</Container>
