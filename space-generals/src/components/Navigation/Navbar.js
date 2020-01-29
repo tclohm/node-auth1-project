@@ -13,9 +13,12 @@ import {
 
 import Home from "../Home/Home.js";
 import { Register } from "../Auth";
+import Matches from "../Matches/Matches.js";
 
 export const Navigation = () => {
-	  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+
+  const [isLoggedIn, setIsLogged] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -50,6 +53,9 @@ export const Navigation = () => {
       </Route>
       <Route path="/register">
         <Register />
+      </Route>
+      <Route path="/matches">
+        <Matches />
       </Route>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../../App.css";
 import logo from "./assets/astro.png";
 
@@ -28,6 +29,7 @@ export const Register = () => {
 	const [activeTab, setActiveTab] = useState('1');
 	const [userToRegister, setUserToRegister] = useState({username: "", password: ""});
 	const [userToLogin, setUserToLogin] = useState({username: "", password: ""});
+	const [errorMessage, setErrorMessage] = useState("🤔, something went wrong. Please try again.");
 
 	const [isFetching, setIsFetching] = useState(false);
 	const [isRegistered, setIsRegistered] = useState(false);
@@ -42,11 +44,46 @@ export const Register = () => {
   	}
 
   	const changeRegisterUser = (event) => {
+  		if(event.target.name === 'username') {
+  			setUserToLogin({...userToLogin, [event.target.name]: event.target.value})
+  		}
   		return setUserToRegister({...userToRegister, [event.target.name]: event.target.value});
+  	}
+
+  	const registerUser = () => {
+  		axios.create({
+  			baseURL: "",
+  			withCredentials: true,
+  			crossDomain: true,
+  		});
+  		axios.post('http://www.localhost:5000/api/auth/register', userToRegister)
+  			.then(res => {
+  				console.log(res);
+  			})
+  			.catch(err => {
+  				console.log(err);
+  				setErrorMessage("🤔, something went wrong. Please try again.");
+  			})
+  	}
+
+  	const loginUser = () => {
+  		axios.create({
+  			baseURL: "",
+  			withCredentials: true,
+  			crossDomain: true,
+  		});
+  		axios.post('http://www.localhost:5000/api/auth/login', userToRegister)
+  			.then(res => {
+  				console.log(res)
+  			})
+  			.catch(err => {
+  				console.log(err);
+  			})
   	}
 
   	const register = () => {
   		if (userToRegister.username !== "" && userToRegister.password !== "") {
+  			registerUser()
 	  		setIsFetching(true);
 	  		let fetch = () => setTimeout(function() {
 	  			setIsFetching(false);
@@ -101,15 +138,15 @@ export const Register = () => {
 					<></>
 				}
 				{isRegistered && !isFetching ? 
-					<Col xs={{ offset: 6 }}>
-						<Alert color="success">Registration success, please login.</Alert>
+					<Col xs={{ offset: 2 }}>
+						<Alert color="success">Success! Please log in</Alert>
 					</Col>
 					:
 					<></>
 				}
 				{throwError ?
 					<Col xs={{ offset: 2 }}>
-						<Alert color="danger">🤔, something went wrong. Please try again.</Alert>
+						<Alert color="danger">{errorMessage}</Alert>
 					</Col>
 					:
 					<></>
